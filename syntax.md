@@ -321,3 +321,48 @@ alert "Stop warning me" if "ranks" in words
 ```
 
 ## エイリアスと存在確認演算子
+CoffeeScriptはいくつかの便利なエイリアスを利用することができる。
+
+* @
+
+`this`のエイリアス。
+
+``` coffee
+@saviour = true
+```
+
+* ::
+`prototype`のエイリアス
+
+``` coffee
+User::first = @records[0]
+```
+
+JavaScriptでは`if`を`null`チェックに用いることは普通にある。
+しかし、空文字列と0が共に`false`に変換されることが落とし穴としてある。
+CoffeeScriptの存在確認演算子である`?`は変数が`null`ではないか、`undefined`でなければ`true`を返す。
+これはRubyの`nil?`と同等だ。
+
+``` coffee
+praise if brain?
+```
+
+これは`||`演算子の代わりにも使える。
+
+``` coffee
+verocity = southern ? 40
+```
+
+もしも`null`チェックをプロパティに対してアクセスする前に行う場合、存在確認演算子をその前に置くだけでスキップすることができる。
+これはActive Supportの`try`メソッドに似ている。
+
+``` coffee
+blacknight.getLegs()?.kick()
+```
+
+同様にプロパティが実施に関数であり、呼び出し可能であるかチェックすることが括弧の直前に存在確認演算子を置くことで可能になっている。
+もしもプロパティが存在しないか、関数ではない場合は呼出は行われない。
+
+``` coffee
+blacknight.getLegs().kick?()
+```
