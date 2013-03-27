@@ -154,7 +154,7 @@ User.create(name: "Jhon Smith")
 
 ``` coffee
 array1 = [1, 2, 3]
-array2 = p
+array2 = [
   1
   2
   3
@@ -187,7 +187,7 @@ if 1 > 0 then "OK" else "Y2K!"
 CoffeeScript はまた、Rubyで採用されている後置if を利用することが可能となっている。
 
 ``` coffee
-alert "It's cold!" if heat <5
+alert "It's cold!" if heat < 5
 ```
 
 否定にびっくりマークを用いる代わりに`not`キーワードを用いることができる。
@@ -280,5 +280,44 @@ minstrel = while num -= 1
 
 ## 配列
 
+CoffeeScriptは配列の範囲(region)を用いたスライスについてのヒントをRubyから得ている。
+範囲は2つの数値から作られる。
+最初と最後の位置を示す2つの数値は`..`か`...`で区切られる。
+もし、範囲の前に何もない場合にはCoffeeScriptはそれを配列に変換する。
+
+``` coffee
+range = [1..5
+```
+
+しかし、もしも範囲が変数の直後に置かれたならば、CoffeeScriptはそれを`slice()`メソッドの呼び出しに変換する。
+
+``` coffee
+firstTwo = ["one", "two", "three"][0..1]
+```
+
+上の例では範囲は新しい配列を返す。
+それは、元の配列の最初の要素のみを持つ配列だ。
+同じ文法の配列の一部を他の配列で置換することにも使える。
+
+``` coffee
+numbers = [0..9]
+numbers = [3..5] = [-3, -4, -5]
+```
+
+JavaScript では`slice()`を文字列に対して呼ぶことができる。
+そのため、範囲を文字列に対して使用することで部分文字列を返すことが可能となっている。
+
+``` coffee
+my = "my string"[0..2]
+```
+
+JavaScriptでは配列のなかにある値が存在するか確認することはとても面倒だった。
+`indexOf()`がすべてのブラウザ間においてサポートされていなかったからである。
+CoffeeScriptはこれを`in`演算子を用いて解決している。
+
+``` coffee
+words = ["rattled", "roudy", "rebbles", "ranks"]
+alert "Stop warning me" if "ranks" in words
+```
 
 ## エイリアスと存在確認演算子
